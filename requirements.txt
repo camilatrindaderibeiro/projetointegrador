@@ -1,0 +1,3 @@
+Flask>=3.0
+psycopg2-binary>=2.9   # necessário apenas para PostgreSQL
+pytest>=8.0            # opcional: os testes também rodam com "python -m unittest"
