@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Pedido #{{ pedido.id }}</h1>
+<p class="status s-{{ pedido.status }}">Status: <strong>{{ pedido.status|status }}</strong></p>
+<p>Pagamento: {{ pedido.forma_pagamento|pagamento }} · Entrega: {{ pedido.endereco_entrega }}</p>
+<table>
+  <tr><th>Produto</th><th>Qtd</th><th>Preço un.</th></tr>
+  {% for i in itens %}
+  <tr><td>{{ i.nome }}</td><td>{{ i.quantidade }}</td><td>{{ i.preco_unitario_centavos|brl }}</td></tr>
+  {% endfor %}
+  <tr><th colspan="2">Total</th><th>{{ pedido.total_centavos|brl }}</th></tr>
+</table>
+{% endblock %}

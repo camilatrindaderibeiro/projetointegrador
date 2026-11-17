@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Meus pedidos</h1>
+{% if pedidos %}
+<table>
+  <tr><th>Nº</th><th>Data</th><th>Total</th><th>Status</th></tr>
+  {% for p in pedidos %}
+  <tr><td><a href="{{ url_for('loja.detalhe_pedido', pedido_id=p.id) }}">#{{ p.id }}</a></td>
+      <td>{{ p.criado_em|data }}</td><td>{{ p.total_centavos|brl }}</td><td>{{ p.status|status }}</td></tr>
+  {% endfor %}
+</table>
+{% else %}<p>Você ainda não fez pedidos.</p>{% endif %}
+{% endblock %}

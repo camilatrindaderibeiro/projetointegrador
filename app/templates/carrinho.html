@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Seu carrinho</h1>
+{% if itens %}
+<table>
+  <tr><th>Produto</th><th>Qtd</th><th>Subtotal</th><th></th></tr>
+  {% for i in itens %}
+  <tr>
+    <td>{{ i.produto.nome }}</td><td>{{ i.quantidade }}</td><td>{{ i.subtotal|brl }}</td>
+    <td><form method="post" action="{{ url_for('loja.remover', produto_id=i.produto.id) }}"><button class="link">Remover</button></form></td>
+  </tr>
+  {% endfor %}
+  <tr><th colspan="2">Total</th><th colspan="2">{{ total|brl }}</th></tr>
+</table>
+<p><a class="botao" href="{{ url_for('loja.checkout') }}">Finalizar pedido</a></p>
+{% else %}<p>Seu carrinho está vazio. <a href="{{ url_for('loja.catalogo') }}">Ver cardápio</a></p>{% endif %}
+{% endblock %}

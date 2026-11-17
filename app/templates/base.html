@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Cupcakeria Gourmet{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+  <a class="logo" href="{{ url_for('loja.catalogo') }}">🧁 Cupcakeria</a>
+  <nav>
+    <a href="{{ url_for('loja.catalogo') }}">Cardápio</a>
+    <a href="{{ url_for('loja.carrinho') }}">Carrinho</a>
+    {% if g.usuario %}
+      <a href="{{ url_for('loja.meus_pedidos') }}">Meus pedidos</a>
+      {% if g.usuario.admin %}<a href="{{ url_for('admin.pedidos') }}">Gestão</a>{% endif %}
+      <form method="post" action="{{ url_for('auth.logout') }}"><button class="link">Sair ({{ g.usuario.nome.split()[0] }})</button></form>
+    {% else %}
+      <a href="{{ url_for('auth.login') }}">Entrar</a>
+      <a href="{{ url_for('auth.cadastro') }}">Cadastrar</a>
+    {% endif %}
+  </nav>
+</header>
+<main>
+  {% for categoria, msg in get_flashed_messages(with_categories=true) %}
+    <div class="msg {{ categoria }}" role="alert">{{ msg }}</div>
+  {% endfor %}
+  {% block conteudo %}{% endblock %}
+</main>
+</body>
+</html>

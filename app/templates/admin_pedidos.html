@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Gestão de pedidos</h1>
+<table>
+  <tr><th>Nº</th><th>Cliente</th><th>Total</th><th>Status</th><th>Alterar</th></tr>
+  {% for p in pedidos %}
+  <tr>
+    <td><a href="{{ url_for('loja.detalhe_pedido', pedido_id=p.id) }}">#{{ p.id }}</a></td>
+    <td>{{ p.cliente }}</td><td>{{ p.total_centavos|brl }}</td><td>{{ p.status|status }}</td>
+    <td><form method="post" action="{{ url_for('admin.atualizar_status', pedido_id=p.id) }}">
+      <select name="status" aria-label="Novo status">
+        {% for k, v in STATUS.items() %}<option value="{{ k }}" {{ 'selected' if k == p.status }}>{{ v }}</option>{% endfor %}
+      </select> <button>Salvar</button></form></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Criar conta</h1>
+<form method="post" class="form">
+  <label>Nome <input name="nome" required></label>
+  <label>E-mail <input type="email" name="email" required></label>
+  <label>Senha (mín. 6 caracteres) <input type="password" name="senha" minlength="6" required></label>
+  <button>Cadastrar</button>
+</form>
+{% endblock %}

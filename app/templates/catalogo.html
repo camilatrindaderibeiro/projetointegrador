@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Nossos cupcakes</h1>
+<div class="grade">
+{% for p in produtos %}
+  <article class="card">
+    <h2>{{ p.nome }}</h2>
+    <p>{{ p.descricao }}</p>
+    <p class="preco">{{ p.preco_centavos|brl }}</p>
+    {% if p.estoque > 0 %}
+    <form method="post" action="{{ url_for('loja.adicionar', produto_id=p.id) }}">
+      <input type="number" name="quantidade" value="1" min="1" max="{{ p.estoque }}" aria-label="Quantidade">
+      <button>Adicionar</button>
+    </form>
+    {% else %}<p class="esgotado">Esgotado</p>{% endif %}
+  </article>
+{% endfor %}
+</div>
+{% endblock %}
